@@ -1,13 +1,25 @@
 
 /* Controllers */
-var kuzzle = Kuzzle.init("http://127.0.0.1:7512")
+var kuzzle = Kuzzle.init('http://127.0.0.1:7512')
+
+var setCubeRotation = function(pitch, roll, yawn) {
+  document.querySelector('#cube').style.transform = 'rotateX( '+ (0+pitch) +'deg ) rotateY( '+ (0+yawn) +'deg ) rotateZ( '+ (0+roll) +'deg ) scale( 0.8 )';
+
+  /*document.querySelector('#cube .front').style.transform = 'rotateX( '+ (0+pitch) +'deg ) rotateY( '+ (0+yawn) +'deg ) rotateZ( '+ (0+roll) +'deg ) translateZ( 97px )';
+  document.querySelector('#cube .back').style.transform = 'rotateX( '+ (180+pitch) +'deg ) rotateY( '+ (0-yawn) +'deg ) rotateZ( '+ (0+roll) +'deg ) translateZ( 97px )';
+  document.querySelector('#cube .right').style.transform = 'rotateX( '+ (0+pitch) +'deg ) rotateY( '+ (90+yawn) +'deg ) rotateZ( '+ (0+roll) +'deg ) translateZ( 97px )';
+  document.querySelector('#cube .left').style.transform = 'rotateX( '+ (0+pitch) +'deg ) rotateY( '+ (-90+yawn) +'deg ) rotateZ( '+ (0+roll) +'deg ) translateZ( 97px )';
+  document.querySelector('#cube .top').style.transform = 'rotateX( '+ (90+pitch) +'deg ) rotateZ( '+ (0-yawn) +'deg ) rotateZ( '+ (0+roll) +'deg ) translateZ( 97px )';
+  document.querySelector('#cube .bottom').style.transform = 'rotateX( '+ (-90+pitch) +'deg ) rotateZ( '+ (0+yawn) +'deg ) rotateZ( '+ (0+roll) +'deg ) translateZ( 97px )';*/
+
+}
+
 
 app
   // Flot Chart controller
   .controller('FlotChartDemoCtrl', ['$scope', '$interval', 'JQ_CONFIG', 'uiLoad', function($scope, $interval, JQ_CONFIG, uiLoad) {
 
-    console.log("t");
-    //load plotjs
+    //load plotjs & easyPieChart
     var plotLoaded = false;
     var easyPieChart = false;
     uiLoad.load(JQ_CONFIG['plot']).then(function() {plotLoaded=true}).catch(function() {});
@@ -27,9 +39,21 @@ app
     }).catch(function() {});
 
     // init vars
-    $scope.pi_accelerometer_x = "50%"
-    $scope.pi_accelerometer_y = "50%"
-    $scope.pi_accelerometer_z = "50%"
+    $scope.pi_accelerometer_x = '50%'
+    $scope.pi_accelerometer_y = '50%'
+    $scope.pi_accelerometer_z = '50%'
+
+    $scope.pi_gyro_x = '50%'
+    $scope.pi_gyro_y = '50%'
+    $scope.pi_gyro_z = '50%'
+
+    $scope.pi_orientation_x = '50%'
+    $scope.pi_orientation_y = '50%'
+    $scope.pi_orientation_z = '50%'
+
+    $scope.pi_compass_x = '50%'
+    $scope.pi_compass_y = '50%'
+    $scope.pi_compass_z = '50%'
 
     $scope.lastDataUpdated = 0
     $scope.displayAlert = false
@@ -39,65 +63,73 @@ app
         pressure_data_d = [],
         pressure_data = [];
 
-    //$scope.temperature_data = []
-    //$scope.temperature_data_d = []
 
 
-    traqball_1 = new Traqball({stage: "stage", axis: [0, 0, 0], angle: 1})
-
-
+    /////////////////////////
+    // data model
+    /////////////////////////
     $scope.pi = {
-      "accelerometer": {
-        "date": 0,
-        "raw": {
-          "x": 0,
-          "y": 0,
-          "z": 0
+      'intertial' : {
+        'date': 0,
+        'accelerometer': {
+          'deg': {'pitch': 0, 'roll': 0, 'yaw': 0},
+          'raw': {'x': 0, 'y': 0, 'z': 0},
         },
-        "rad": {
-          "pitch": 0,
-          "roll": 0,
-          "yaw": 0
+        'compass': {
+          'north': 0,
+          'raw': {'x': 0, 'y': 0, 'z': 0},
+        },
+        'gyro': {
+          'deg': {'pitch': 0, 'roll': 0, 'yaw': 0},
+          'raw': {'x': 0, 'y': 0, 'z': 0},
+        },
+        'orientation': {
+          'deg': {'pitch': 0, 'roll': 0, 'yaw': 0},
+          'rad': {'pitch': 0, 'roll': 0, 'yaw': 0},
         },
       },
-      "environmental": {
-        "date": 0,
-        "humidity": 0,
-        "pressure": 0,
-        "temperature": {
-          "average": 0,
-          "humidity": 0,
-          "pressure": 0,
-        }
+      'environmental': {
+        'date': 0,
+        'humidity': 0,
+        'pressure': 0,
+        'temperature': {'average': 0, 'humidity': 0, 'pressure': 0}
       }
     }
 
+
+    /////////////////////////
     // register kuzzle updates
-    kuzzle.subscribe("raspberry_sense_accelerometer", {}, function(error, response) {
+    /////////////////////////
+    kuzzle.subscribe('raspberry_sense_inertial', {}, function(error, response) {
       if (error) {
         console.log(error)
       }
 
       $scope.$apply(function() {
-        $scope.pi.accelerometer = response._source.accelerometer;
-        $scope.pi.accelerometer.date = response._source.date;
-        $scope.lastDataUpdated = Math.round($scope.pi.accelerometer.date * 1000)
+        $scope.pi.inertial = response._source;
+        $scope.pi.inertial.date = response._source.date;
+        $scope.lastDataUpdated = Math.round($scope.pi.inertial.date * 1000)
       });
     });
 
-    kuzzle.subscribe("raspberry_sense_environmental", {}, function(error, response) {
+    kuzzle.subscribe('raspberry_sense_environmental', {}, function(error, response) {
       if (error) {
         console.log(error)
       }
 
       $scope.$apply(function() {
-        $scope.pi.environmental = response._source.environmental;
-        $scope.pi.environmental.date = response._source.date;
+        $scope.pi.environmental = response._source;
         $scope.pi.environmental.temperature.average = ($scope.pi.environmental.temperature.humidity + $scope.pi.environmental.temperature.pressure) / 2
         $scope.lastDataUpdated = Math.round($scope.pi.environmental.date * 1000)
       });
     });
 
+
+
+
+    /////////////////////////
+    // kuzzle connecion Check
+    /////////////////////////
     $interval(function() {
       $scope.displayAlert = false;
 
@@ -107,50 +139,180 @@ app
 
     }, 2000);
 
-    // watch changed values on accelerometer
-    $scope.$watch('pi.accelerometer', function() {
-      // draw accelerometer X status
-      if ($scope.pi.accelerometer.raw.x == 0) {
-        $scope.pi_accelerometer_x = "50%"
-      } else if ($scope.pi.accelerometer.raw.x > 0) {
-        $scope.pi_accelerometer_x = (($scope.pi.accelerometer.raw.x*100)/2 +50) + "%"
-      } else {
-        $scope.pi_accelerometer_x = Math.abs(Math.abs($scope.pi.accelerometer.raw.x*100)/2-50) + "%"
+
+
+
+    //////////////////////////////////////////////////
+    // watch changed values on inertial sensors
+    //////////////////////////////////////////////////
+    $scope.$watch('pi.inertial', function() {
+      /////////////////////////
+      // accelerometer
+      /////////////////////////
+
+      if ($scope.pi.inertial && $scope.pi.inertial.accelerometer) {
+        // draw accelerometer X status
+        if ($scope.pi.inertial.accelerometer.raw.x == 0) {
+          $scope.pi_accelerometer_x = '50%'
+        } else if ($scope.pi.inertial.accelerometer.raw.x > 0) {
+          $scope.pi_accelerometer_x = (($scope.pi.inertial.accelerometer.raw.x*100)/2 +50) + '%'
+        } else {
+          $scope.pi_accelerometer_x = Math.abs(Math.abs($scope.pi.inertial.accelerometer.raw.x*100)/2-50) + '%'
+        }
+
+          // draw accelerometer Y status
+        if ($scope.pi.inertial.accelerometer.raw.y == 0) {
+          $scope.pi_accelerometer_y = '50%'
+        } else if ($scope.pi.inertial.accelerometer.raw.y > 0) {
+          $scope.pi_accelerometer_y = (($scope.pi.inertial.accelerometer.raw.y*100)/2 +50) + '%'
+        } else {
+          $scope.pi_accelerometer_y = Math.abs(Math.abs($scope.pi.inertial.accelerometer.raw.y*100)/2-50) + '%'
+        }
+
+
+        // draw accelerometer Z status
+        if ($scope.pi.inertial.accelerometer.raw.z == 0) {
+          $scope.pi_accelerometer_z = '50%'
+        } else if ($scope.pi.inertial.accelerometer.raw.z > 0) {
+          $scope.pi_accelerometer_z = (($scope.pi.inertial.accelerometer.raw.z*100)/2 +50) + '%'
+        } else {
+          $scope.pi_accelerometer_z = Math.abs(Math.abs($scope.pi.inertial.accelerometer.raw.z*100)/2-50) + '%'
+        }
       }
 
-        // draw accelerometer Y status
-      if ($scope.pi.accelerometer.raw.y == 0) {
-        $scope.pi_accelerometer_y = "50%"
-      } else if ($scope.pi.accelerometer.raw.y > 0) {
-        $scope.pi_accelerometer_y = (($scope.pi.accelerometer.raw.y*100)/2 +50) + "%"
-      } else {
-        $scope.pi_accelerometer_y = Math.abs(Math.abs($scope.pi.accelerometer.raw.y*100)/2-50) + "%"
+      /////////////////////////
+      // gyroscope
+      /////////////////////////
+
+      if ($scope.pi.inertial && $scope.pi.inertial.gyro) {
+        // draw gyro X status
+        if ($scope.pi.inertial.gyro.raw.x == 0) {
+          $scope.pi_gyro_x = '50%'
+        } else if ($scope.pi.inertial.gyro.raw.x > 0) {
+          $scope.pi_gyro_x = (($scope.pi.inertial.gyro.raw.x*100)/2 +50) + '%'
+        } else {
+          $scope.pi_gyro_x = Math.abs(Math.abs($scope.pi.inertial.gyro.raw.x*100)/2-50) + '%'
+        }
+
+          // draw gyro Y status
+        if ($scope.pi.inertial.gyro.raw.y == 0) {
+          $scope.pi_gyro_y = '50%'
+        } else if ($scope.pi.inertial.gyro.raw.y > 0) {
+          $scope.pi_gyro_y = (($scope.pi.inertial.gyro.raw.y*100)/2 +50) + '%'
+        } else {
+          $scope.pi_gyro_y = Math.abs(Math.abs($scope.pi.inertial.gyro.raw.y*100)/2-50) + '%'
+        }
+
+
+        // draw gyro Z status
+        if ($scope.pi.inertial.gyro.raw.z == 0) {
+          $scope.pi_gyro_z = '50%'
+        } else if ($scope.pi.inertial.gyro.raw.z > 0) {
+          $scope.pi_gyro_z = (($scope.pi.inertial.gyro.raw.z*100)/2 +50) + '%'
+        } else {
+          $scope.pi_gyro_z = Math.abs(Math.abs($scope.pi.inertial.gyro.raw.z*100)/2-50) + '%'
+        }
       }
 
 
-      // draw accelerometer Z status
-      if ($scope.pi.accelerometer.raw.z == 0) {
-        $scope.pi_accelerometer_z = "50%"
-      } else if ($scope.pi.accelerometer.raw.z > 0) {
-        $scope.pi_accelerometer_z = (($scope.pi.accelerometer.raw.z*100)/2 +50) + "%"
-      } else {
-        $scope.pi_accelerometer_z = Math.abs(Math.abs($scope.pi.accelerometer.raw.z*100)/2-50) + "%"
+
+      /////////////////////////
+      // orientation
+      /////////////////////////
+
+      if ($scope.pi.inertial && $scope.pi.inertial.orientation) {
+        // draw orientation X status
+        if ($scope.pi.inertial.orientation.rad.pitch == 0) {
+          $scope.pi_orientation_x = '50%'
+        } else if ($scope.pi.inertial.orientation.rad.pitch > 0) {
+          $scope.pi_orientation_x = (($scope.pi.inertial.orientation.rad.pitch*100)/2 +50) + '%'
+        } else {
+          $scope.pi_orientation_x = Math.abs(Math.abs($scope.pi.inertial.orientation.rad.pitch*100)/2-50) + '%'
+        }
+
+          // draw orientation Y status
+        if ($scope.pi.inertial.orientation.rad.roll == 0) {
+          $scope.pi_orientation_y = '50%'
+        } else if ($scope.pi.inertial.orientation.rad.roll > 0) {
+          $scope.pi_orientation_y = (($scope.pi.inertial.orientation.rad.roll*100)/2 +50) + '%'
+        } else {
+          $scope.pi_orientation_y = Math.abs(Math.abs($scope.pi.inertial.orientation.rad.roll*100)/2-50) + '%'
+        }
+
+
+        // draw orientation Z status
+        if ($scope.pi.inertial.orientation.rad.yaw == 0) {
+          $scope.pi_orientation_z = '50%'
+        } else if ($scope.pi.inertial.orientation.rad.yaw > 0) {
+          $scope.pi_orientation_z = (($scope.pi.inertial.orientation.rad.yaw*100)/2 +50) + '%'
+        } else {
+          $scope.pi_orientation_z = Math.abs(Math.abs($scope.pi.inertial.orientation.rad.yaw*100)/2-50) + '%'
+        }
+
+
+        /////////////////////////
+        // cube representation
+        /////////////////////////
+
+        setCubeRotation($scope.pi.inertial.orientation.deg.pitch, $scope.pi.inertial.orientation.deg.roll/-1, 0);
       }
 
-      //traqball_1.setup({stage: "stage", axis: [$scope.pi.accelerometer.rad.pitch, $scope.pi.accelerometer.rad.roll, $scope.pi.accelerometer.rad.yaw]})
-      //traqball_1.setup({stage: "stage", axis: [$scope.pi.accelerometer.raw.z/1, $scope.pi.accelerometer.raw.y, $scope.pi.accelerometer.raw.x/1]})
-      traqball_1.setup({stage: "stage", axis: [$scope.pi.accelerometer.rad.pitch, 0, 0]})
+
+
+      /////////////////////////
+      // compass
+      /////////////////////////
+      if ($scope.pi.inertial && $scope.pi.inertial.compass) {
+        // draw compass X status
+        if ($scope.pi.inertial.compass.raw.x == 0) {
+          $scope.pi_compass_x = '50%'
+        } else if ($scope.pi.inertial.compass.raw.x > 0) {
+          $scope.pi_compass_x = (($scope.pi.inertial.compass.raw.x*100)/2 +50) + '%'
+        } else {
+          $scope.pi_compass_x = Math.abs(Math.abs($scope.pi.inertial.compass.raw.x*100)/2-50) + '%'
+        }
+
+          // draw compass Y status
+        if ($scope.pi.inertial.compass.raw.y == 0) {
+          $scope.pi_compass_y = '50%'
+        } else if ($scope.pi.inertial.compass.raw.y > 0) {
+          $scope.pi_compass_y = (($scope.pi.inertial.compass.raw.y*100)/2 +50) + '%'
+        } else {
+          $scope.pi_compass_y = Math.abs(Math.abs($scope.pi.inertial.compass.raw.y*100)/2-50) + '%'
+        }
+
+
+        // draw compass Z status
+        if ($scope.pi.inertial.compass.raw.z == 0) {
+          $scope.pi_compass_z = '50%'
+        } else if ($scope.pi.inertial.compass.raw.z > 0) {
+          $scope.pi_compass_z = (($scope.pi.inertial.compass.raw.z*100)/2 +50) + '%'
+        } else {
+          $scope.pi_compass_z = Math.abs(Math.abs($scope.pi.inertial.compass.raw.z*100)/2-50) + '%'
+        }
+      }
+
+
+
     });
 
 
 
+    //////////////////////////////////////////////////
+    // watch changed element in environmental sensors
+    //////////////////////////////////////////////////
     $scope.$watch('pi.environmental', function() {
       if (easyPieChart) {
+        /////////////////////////
+        // update humidity chart
+        /////////////////////////
         $('#humidity_pie').data('easyPieChart').update($scope.pi.environmental.humidity);
       }
 
-      if (plotLoaded && typeof(pressure_data[$scope.pi.environmental.date]) == "undefined") {
+      if (plotLoaded && typeof(pressure_data[$scope.pi.environmental.date]) == 'undefined') {
+        /////////////////////////
         // update pressure graph
+        /////////////////////////
         pressure_data_d.push($scope.pi.environmental.pressure)
         pressure_data.push([$scope.pi.environmental.date, $scope.pi.environmental.pressure])
 
@@ -158,15 +320,14 @@ app
           pressure_data.shift()
           pressure_data_d.shift()
         }
-          console.log(pressure_data)
 
-        $.plot($("#pressure_chart"), [
-            { data: pressure_data, label: 'Pressure', color: '#23b7e5' }
+        $.plot($('#pressure_chart'), [
+            { data: pressure_data, color: '#23b7e5' }
           ],
           {
-            bars: { show: true, barWidth: 1.4, fillColor: { colors: [{ opacity: 0.5 }, { opacity: 0.9}] }  },
+            bars: { show: true, barWidth: 4.7, fillColor: { colors: [{ opacity: 0.5 }, { opacity: 0.9}] }  },
             xaxis: {
-              mode: "time" ,
+              mode: 'time' ,
               font: { color: '#ccc' }
             },
             yaxis: {
@@ -179,11 +340,14 @@ app
             tooltip: false
           }
         );
-        $("#pressure_chart").data('plot').draw();
+        $('#pressure_chart').data('plot').draw();
       }
 
 
-      if (plotLoaded && typeof(temperature_data_d[$scope.pi.environmental.date]) == "undefined") {
+      if (plotLoaded && typeof(temperature_data_d[$scope.pi.environmental.date]) == 'undefined') {
+        /////////////////////////
+        // update temperature graph
+        /////////////////////////
         temperature_data_d.push($scope.pi.environmental.temperature.average)
         temperature_data.push([$scope.pi.environmental.date, $scope.pi.environmental.temperature.average])
 
@@ -192,7 +356,7 @@ app
           temperature_data_d.shift()
         }
 
-        $.plot($("#temperature_chart"),[
+        $.plot($('#temperature_chart'),[
           { data: temperature_data, points: { show: false }, splines: { show: true, tension: 0.45, lineWidth: 5, fill: 0 } }
         ],
         {
@@ -200,63 +364,21 @@ app
           series: { shadowSize: 3 },
           xaxis:{
             font: { color: '#ccc' },
-            mode: "time" ,
+            mode: 'time' ,
           },
           yaxis:{
             font: { color: '#ccc' },
             min: Math.min.apply(null, temperature_data_d) - (Math.min.apply(null, temperature_data_d) * 0.01),
             max: Math.max.apply(null, temperature_data_d) + (Math.max.apply(null, temperature_data_d) * 0.01),
-            tickDecimals: 0
           },
           grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#ccc' },
           tooltip: false
         })
 
-        $("#temperature_chart").data('plot').draw();
+        $('#temperature_chart').data('plot').draw();
       }
     });
 
-
-
-/*
-    // watch changed values on environmental sensors
-    $scope.$watch('pi.environmental', function() {
-
-
-      if (plotLoaded && easyPieChart) {
-        // update humidity graph
-        temperature_data_d.push($scope.pi.environmental.humidity)
-        temperature_data.push([(new Date()).getTime(), $scope.pi.environmental.humidity])
-
-        if (temperature_data.length > 60) {
-          temperature_data.shift()
-          temperature_data_d.shift()
-        }
-
-        // draw graph
-        $.plot($("#graph_1"), [
-              { data: temperature_data, lines: { show: true, lineWidth: 1, fill:true, fillColor: { colors: [{opacity: 0.2}, {opacity: 0.8}] } } }
-            ],
-            {
-              colors: ['#e8eff0'],
-              series: { shadowSize: 3 },
-              xaxis:{ mode: "time" },
-              yaxis: {
-                font: { color: '#a1a7ac' },
-        				min: Math.min.apply(null, temperature_data_d) - (Math.min.apply(null, temperature_data_d) * 0.01),
-        				max: Math.max.apply(null, temperature_data_d) + (Math.max.apply(null, temperature_data_d) * 0.01),
-        				tickDecimals: 0
-        			},
-              grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
-              tooltip: true,
-              tooltipOpts: { content: '%s of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 10, y: -25 } }
-            }
-          )
-        $("#graph_1").data('plot').draw();
-      }
-    });
-
-*/
 
 
 
@@ -284,11 +406,11 @@ app
     }
 
     $scope.d3 = [
-      { label: "iPhone5S", data: 40 },
-      { label: "iPad Mini", data: 10 },
-      { label: "iPad Mini Retina", data: 20 },
-      { label: "iPhone4S", data: 12 },
-      { label: "iPad Air", data: 18 }
+      { label: 'iPhone5S', data: 40 },
+      { label: 'iPad Mini', data: 10 },
+      { label: 'iPad Mini Retina', data: 20 },
+      { label: 'iPhone4S', data: 12 },
+      { label: 'iPad Air', data: 18 }
     ];
 
     $scope.refreshData = function(){

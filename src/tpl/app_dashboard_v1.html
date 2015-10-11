@@ -126,26 +126,14 @@
         <div class="col-lg-3">
           <!-- We need something to apply some CSS 3D-perspective to it. Therefore we set up a section as our stage. -->
           <section id="stage" class="stage">
-          	<article id="box" class="box">
-          		<section class="front">
-          			<div></div>
-             		</section>
-          	    <section class="top">
-          			<div></div>
-          		</section>
-          	    <section class="bottom">
-          			<div></div>
-          		</section>
-          		<section class="back">
-          			<div></div>
-              	</section>
-          		<section class="left">
-                 	  <div></div>
-          		</section>
-          		<section class="right">
-                 	  <div></div>
-          		</section>
-          	</article>
+            <div id="cube">
+                <figure class="front">1</figure>
+                <figure class="back">2</figure>
+                <figure class="right">3</figure>
+                <figure class="left">4</figure>
+                <figure class="top">5</figure>
+                <figure class="bottom">6</figure>
+            </div>
           </section>
         </div>
 
@@ -153,39 +141,115 @@
         <div class="col-lg-9">
           <div class="panel hbox hbox-auto-xs no-border">
 
-            <div class="col wrapper">
-              <i class="fa fa-circle-o text-info m-r-sm pull-right"></i>
-              <h4 class="font-thin m-t-none m-b-none text-primary-lt">Managed Services</h4>
-              <span class="m-b block text-sm text-muted">Service report of this year (updated 1 hour ago)</span>
-              <!-- <div id="graph_1" style="height:240px" > </div>-->
-              <!-- <canvas id="thecanvas" width="400" height="250"> -->
+            <div class="col wrapper-lg w-lg bg-white dk r-r">
+              <h4 class="font-thin m-t-none m-b">Orientation</h4>
+              <div class="">
+                <div class="">
+                  <span class="pull-right text-primary">{{pi.inertial.orientation.rad.pitch}}</span>
+                  <span>Pitch</span>
+                </div>
+                <div class="progress progress-xs m-t-sm bg-white">
+                  <div class="progress-bar bg-primary" data-toggle="tooltip" data-original-title="{{pi_orientation_x}}" style="width: {{pi_orientation_x}}"></div>
+                </div>
+                <div class="">
+                  <span class="pull-right text-info">{{pi.inertial.orientation.rad.roll}}</span>
+                  <span>Roll</span>
+                </div>
+                <div class="progress progress-xs m-t-sm bg-white">
+                  <div class="progress-bar bg-info" data-toggle="tooltip" data-original-title="{{pi_orientation_x}}" style="width: {{pi_orientation_y}}"></div>
+                </div>
+                <div class="">
+                  <span class="pull-right text-success">{{pi.inertial.orientation.rad.yaw}}</span>
+                  <span>Yaw</span>
+                </div>
+                <div class="progress progress-xs m-t-sm bg-white">
+                  <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="{{pi_orientation_z}}" style="width: {{pi_orientation_z}}"></div>
+                </div>
+                <p class="text-muted">The values are Floats representing the angle of the axis in radians</p>
+              </div>
             </div>
 
-            <div class="col wrapper-lg w-lg bg-light dk r-r">
+            <div class="col wrapper-lg w-lg bg-white dk r-r">
+              <h4 class="font-thin m-t-none m-b">Gyro</h4>
+              <div class="">
+                <div class="">
+                  <span class="pull-right text-primary">{{pi.inertial.gyro.raw.x}}</span>
+                  <span>Axis X</span>
+                </div>
+                <div class="progress progress-xs m-t-sm bg-white">
+                  <div class="progress-bar bg-primary" data-toggle="tooltip" data-original-title="{{pi_gyro_x}}" style="width: {{pi_gyro_x}}"></div>
+                </div>
+                <div class="">
+                  <span class="pull-right text-info">{{pi.inertial.gyro.raw.y}}</span>
+                  <span>Axis Y</span>
+                </div>
+                <div class="progress progress-xs m-t-sm bg-white">
+                  <div class="progress-bar bg-info" data-toggle="tooltip" data-original-title="{{pi_gyro_x}}" style="width: {{pi_gyro_y}}"></div>
+                </div>
+                <div class="">
+                  <span class="pull-right text-success">{{pi.inertial.gyro.raw.z}}</span>
+                  <span>Axis Z</span>
+                </div>
+                <div class="progress progress-xs m-t-sm bg-white">
+                  <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="{{pi_gyro_z}}" style="width: {{pi_gyro_z}}"></div>
+                </div>
+                <p class="text-muted">The values are Floats representing the rotational intensity of the axis in radians per second</p>
+              </div>
+            </div>
+
+            <div class="col wrapper-lg w-lg bg-white dk r-r">
               <h4 class="font-thin m-t-none m-b">Accelerometer</h4>
               <div class="">
                 <div class="">
-                  <span class="pull-right text-primary">{{pi.accelerometer.raw.x}}</span>
+                  <span class="pull-right text-primary">{{pi.inertial.accelerometer.raw.x}}</span>
                   <span>Axis X</span>
                 </div>
                 <div class="progress progress-xs m-t-sm bg-white">
                   <div class="progress-bar bg-primary" data-toggle="tooltip" data-original-title="{{pi_accelerometer_x}}" style="width: {{pi_accelerometer_x}}"></div>
                 </div>
                 <div class="">
-                  <span class="pull-right text-info">{{pi.accelerometer.raw.y}}</span>
+                  <span class="pull-right text-info">{{pi.inertial.accelerometer.raw.y}}</span>
                   <span>Axis Y</span>
                 </div>
                 <div class="progress progress-xs m-t-sm bg-white">
                   <div class="progress-bar bg-info" data-toggle="tooltip" data-original-title="{{pi_accelerometer_x}}" style="width: {{pi_accelerometer_y}}"></div>
                 </div>
                 <div class="">
-                  <span class="pull-right text-warning">{{pi.accelerometer.raw.z}}</span>
+                  <span class="pull-right text-alert">{{pi.inertial.accelerometer.raw.z}}</span>
                   <span>Axis Z</span>
                 </div>
                 <div class="progress progress-xs m-t-sm bg-white">
-                  <div class="progress-bar bg-warning" data-toggle="tooltip" data-original-title="{{pi_accelerometer_z}}" style="width: {{pi_accelerometer_z}}"></div>
+                  <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="{{pi_accelerometer_z}}" style="width: {{pi_accelerometer_z}}"></div>
                 </div>
-                <p class="text-muted">Move your Raspberry Pi !</p>
+                <p class="text-muted">The values are Floats representing the acceleration intensity of the axis in Gs</p>
+              </div>
+            </div>
+
+            <div class="col wrapper-lg w-lg bg-light dk r-r">
+              <h4 class="font-thin m-t-none m-b">Compass</h4>
+              <div class="">
+                <div class="">
+                  <span class="pull-right text-primary">{{pi.inertial.compass.raw.x}} µT</span>
+                  <span>Axis X</span>
+                </div>
+                <div class="progress progress-xs m-t-sm bg-white">
+                  <div class="progress-bar bg-primary" data-toggle="tooltip" data-original-title="{{pi_compass_x}}" style="width: {{pi_compass_x}}"></div>
+                </div>
+                <div class="">
+                  <span class="pull-right text-info">{{pi.inertial.compass.raw.y}} µT</span>
+                  <span>Axis Y</span>
+                </div>
+                <div class="progress progress-xs m-t-sm bg-white">
+                  <div class="progress-bar bg-info" data-toggle="tooltip" data-original-title="{{pi_compass_x}}" style="width: {{pi_compass_y}}"></div>
+                </div>
+                <div class="">
+                  <span class="pull-right text-success">{{pi.inertial.compass.raw.z}} µT</span>
+                  <span>Axis Z</span>
+                </div>
+                <div class="progress progress-xs m-t-sm bg-white">
+                  <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="{{pi_compass_z}}" style="width: {{pi_compass_z}}"></div>
+                </div>
+                <p class="text-muted">The values are Floats representing the magnetic intensity of the axis in microteslas (µT)</p>
               </div>
             </div>
 
