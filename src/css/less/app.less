@@ -1,0 +1,220 @@
+// Core variables and mixins
+@import "app.variables.less";
+@import "app.mixins.less";
+
+@import "app.reset.less";
+@import "app.layout.less";
+@import "app.layout.boxed.less";
+@import "app.nav.less";
+@import "app.nav.offscreen.less";
+@import "app.nav.dock.less";
+
+@import "app.arrow.less";
+@import "app.buttons.less";
+@import "app.widgets.less";
+
+@import "app.components.less";
+@import "app.plugin.less";
+@import "app.item.less";
+@import "app.ng.less";
+
+@import "app.colors.less";
+@import "app.utilities.less";
+
+@import "app.butterbar.less";
+
+section.stage{
+	display: block;
+	position: relative;
+  transform: scale(0.5);
+  width: 300px;
+  height: 300px;
+  margin: -45px 0 0 25px;
+	-webkit-perspective: 700px;
+	-moz-perspective: 700px;
+	-ms-perspective: 700px;
+	-o-perspective: 700px;
+	perspective: 700px;
+	-webkit-perspective-origin: 50% 50%;
+	-moz-perspective-origin: 50% 50%;
+	-o-perspective-origin: 50% 50%;
+	-ms-perspective-origin: 50% 50%;
+	perspective-origin: 50% 50%;
+}
+
+article.box{
+	cursor: move;
+	position: absolute;
+	top: 30%;
+	left: 20%;
+	width:300px;
+	height: 300px;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform: rotate3d(1,1,0, 0deg);
+	-moz-transform: rotate3d(1,1,0,-0deg);
+	-ms-transform: rotate3d(1,1,0,0deg);
+	-o-transform:  rotate3d(1,1,0,0eg);
+	transform:  rotate3d(1,1,0,0deg);
+}
+
+.box section{
+	margin-top: -177px;
+	margin-left: -117px;
+	position: absolute;
+	display: block;
+	overflow: hidden;
+	top: 50%;
+	left: 50%;
+}
+
+.front,
+.back{
+	width:300px;
+	height: 300px;
+	-webkit-transform: translate3d(0px, 0px, 150px);
+	-moz-transform: translate3d(0px, 0px, 150px);
+	-o-transform: translate3d(0px, 0px, 150px);
+	transform: translate3d(0px, 0px, 150px);
+}
+	.front  div, .back div, .left div, .right div{
+		width: 20px;
+		height: 20px;
+		background: #79C346;
+		box-shadow: #A6E07A 20px 0 0, #58B513 40px 0 0, #A6E07A 60px 0px 0, #A6E07A 80px 0px 0, #6BC529 100px 0px 0, #58B513 120px 0px 0, #A6E560 140px 0px 0, #4CAB06 160px 0px 0, #7BD53B 180px 0px 0, #A8E27B 200px 0px 0, #9FDC58 220px 0px 0, #359400 240px 0px 0, #BFFF6A 260px 0px 0, #58B616 280px 0px 0,
+					#58B513 0px 20px 0, #99DA52 20px 20px 0, #9AFF4C 40px 20px 0, #9DD975 60px 20px 0, #E4FF92 80px 20px 0, #674730 100px 20px 0, #60BC1F 120px 20px 0, #6BC529 140px 20px 0, #70DE1C 160px 20px 0, #65C123 180px 20px 0, #4CAB06 200px 20px 0, #7BD53B 220px 20px 0, #9FD772 240px 20px 0, #89CF6F 260px 20px 0, #80C45F 280px 20px 0,
+					#674730 0px 40px 0, #674730 20px 40px 0, #4CAB06 40px 40px 0, #A8E27B 60px 40px 0, #7BD53B 80px 40px 0, #674730 100px 40px 0, #9AFF4C 120px 40px 0, #674730 140px 40px 0, #9FD772 160px 40px 0, #70DE1C 180px 40px 0, #6BC529 200px 40px 0, #674730 220px 40px 0, #81CB6A 240px 40px 0, #E2F4CA 260px 40px 0, #674730 280px 40px 0,
+					#9C745B 0px 60px 0, #78768B 20px 60px 0, #674730 40px 60px 0, #674730 60px 60px 0, #79C346 80px 60px 0, #674730 100px 60px 0, #674730 120px 60px 0, #674730 140px 60px 0, #9DDB78 160px 60px 0, #674730 180px 60px 0, #6BC529 200px 60px 0, #9C745B 220px 60px 0, #674730 240px 60px 0, #674730 260px 60px 0, #9C745B 280px 60px 0,
+					#9C745B 0px 80px 0, #9C745B 20px 80px 0, #8E6545 40px 80px 0, #DBA889 60px 80px 0, #674730 80px 80px 0, #DBA889 100px 80px 0, #9C745B 120px 80px 0, #9C745B 140px 80px 0, #674730 160px 80px 0, #674730 180px 80px 0, #674730 200px 80px 0, #78768B 220px 80px 0, #9C745B 240px 80px 0, #674730 260px 80px 0, #9C745B 280px 80px 0,
+					#DBA889 0px 100px 0, #674730 20px 100px 0, #8E6545 40px 100px 0, #8E6545 60px 100px 0, #9C745B 80px 100px 0, #8E6545 100px 100px 0, #674730 120px 100px 0, #674730 140px 100px 0, #674730 160px 100px 0, #9C745B 180px 100px 0, #9C745B 200px 100px 0, #674730 220px 100px 0, #9C745B 240px 100px 0, #9C745B 260px 100px 0, #DBA889 280px 100px 0,
+					#8E6545 0px 120px 0, #674730 20px 120px 0, #9C745B 40px 120px 0, #9C745B 60px 120px 0, #78768B 80px 120px 0, #9C745B 100px 120px 0, #9C745B 120px 120px 0, #DBA889 140px 120px 0, #DBA889 160px 120px 0, #9C745B 180px 120px 0, #DBA889 200px 120px 0, #DBA889 220px 120px 0, #9C745B 240px 120px 0, #9C745B 260px 120px 0, #9C745B 280px 120px 0,
+					#8E6545 0px 140px 0, #B07E59 20px 140px 0, #DBA889 40px 140px 0, #DBA889 60px 140px 0, #8E6545 80px 140px 0, #8E6545 100px 140px 0, #9C745B 120px 140px 0, #9C745B 140px 140px 0, #674730 160px 140px 0, #9C745B 180px 140px 0, #9C745B 200px 140px 0, #DBA889 220px 140px 0, #DBA889 240px 140px 0, #674730 260px 140px 0, #9C6E54 280px 140px 0,
+					#B07E59 0px 160px 0, #B07E59 20px 160px 0, #B07E59 40px 160px 0, #8E6545 60px 160px 0, #8E6545 80px 160px 0, #B07E59 100px 160px 0, #674730 120px 160px 0, #674730 140px 160px 0, #B07E59 160px 160px 0, #B07E59 180px 160px 0, #B07E59 200px 160px 0, #B07E59 220px 160px 0, #B07E59 240px 160px 0, #674730 260px 160px 0, #674730 280px 160px 0,
+					#8E6545 0px 180px 0, #8E6545 20px 180px 0, #B07E59 40px 180px 0, #B07E59 60px 180px 0, #543322 80px 180px 0, #543322 100px 180px 0, #674730 120px 180px 0, #CDA081 140px 180px 0, #9C745B 160px 180px 0, #9C745B 180px 180px 0, #B07E59 200px 180px 0, #B07E59 220px 180px 0, #674730 240px 180px 0, #674730 260px 180px 0, #B07E59 280px 180px 0,
+					#CDA081 0px 200px 0, #CDA081 20px 200px 0, #B07E59 40px 200px 0, #B07E59 60px 200px 0, #674730 80px 200px 0, #543322 100px 200px 0, #956B53 120px 200px 0, #956B53 140px 200px 0, #78758A 160px 200px 0, #B07E59 180px 200px 0, #8F6646 200px 200px 0, #674730 220px 200px 0, #DBA889 240px 200px 0, #9C745B 260px 200px 0, #543322 280px 200px 0,
+					#543322 0px 220px 0, #9C745B 20px 220px 0, #9C745B 40px 220px 0, #9C745B 60px 220px 0, #B07E59 80px 220px 0, #B07E59 100px 220px 0, #B07E59 120px 220px 0, #CDA081 140px 220px 0, #543322 160px 220px 0, #543322 180px 220px 0, #674730 200px 220px 0, #674730 220px 220px 0, #674730 240px 220px 0, #B07E59 260px 220px 0, #543322 280px 220px 0,
+					#8E6545 0px 240px 0, #B07E59 20px 240px 0, #B07E59 40px 240px 0, #9C6E54 60px 240px 0, #674730 80px 240px 0, #B07E59 100px 240px 0, #B07E59 120px 240px 0, #543322 140px 240px 0, #9C745B 160px 240px 0, #9C6E54 180px 240px 0, #9C6E54 200px 240px 0, #B0805A 220px 240px 0, #B07E59 240px 240px 0, #B07E59 260px 240px 0, #9C745B 280px 240px 0,
+					#8E6545 0px 260px 0, #956B53 20px 260px 0, #9C745B 40px 260px 0, #674730 60px 260px 0, #B07E59 80px 260px 0, #674730 100px 260px 0, #543322 120px 260px 0, #543322 140px 260px 0, #674730 160px 260px 0, #CDA081 180px 260px 0, #9C745B 200px 260px 0, #78758A 220px 260px 0, #543322 240px 260px 0, #CCA588 260px 260px 0, #9C6E54 280px 260px 0,
+					#674730 0px 280px 0, #B07E59 20px 280px 0, #78758A 40px 280px 0, #B07E59 60px 280px 0, #B07E59 80px 280px 0, #543322 100px 280px 0, #674730 120px 280px 0, #543322 140px 280px 0, #B07E59 160px 280px 0, #B07E59 180px 280px 0, #674730 200px 280px 0, #674730 220px 280px 0, #9C745B 240px 280px 0, #B07E59 260px 280px 0, #CCA588 280px 280px 0;
+	}
+
+.top{
+	width:300px;
+	height: 300px;
+	-webkit-transform: rotateX(90deg) translate3d(0px, 0px, 150px);
+	-moz-transform: rotateX(90deg) translate3d(0px, 0px, 150px);
+	-o-transform: rotateX(90deg) translate3d(0px, 0px, 150px);
+	-transform: rotateX(90deg) translate3d(0px, 0px, 150px);
+}
+	.top  div{
+		width: 20px;
+		height: 20px;
+		background: #79C346;
+		box-shadow: #A6E07A 20px 0 0, #6BC529 40px 0 0, #A6E07A 60px 0px 0, #A6E07A 80px 0px 0, #6BC529 100px 0px 0, #6BC529 120px 0px 0, #A6E560 140px 0px 0, #4CAB06 160px 0px 0, #7BD53B 180px 0px 0, #A8E27B 200px 0px 0, #9FDC58 220px 0px 0, #359400 240px 0px 0, #BFFF6A 260px 0px 0, #58B616 280px 0px 0,
+					#6BC529 0px 40px 0, #6BC529 20px 40px 0, #A8E27B 40px 40px 0, #A8E27B 60px 40px 0, #A8E27B 80px 40px 0, #89CF6F 100px 40px 0, #9AFF4C 120px 40px 0, #6BC529 140px 40px 0, #A8E27B 160px 40px 0, #70DE1C 180px 40px 0, #6BC529 200px 40px 0, #E2F4CA 220px 40px 0, #81CB6A 240px 40px 0, #E2F4CA 260px 40px 0, #80C45F 280px 40px 0,
+					#58B513 0px 20px 0, #99DA52 20px 20px 0, #9AFF4C 40px 20px 0, #6BC529 60px 20px 0, #E4FF92 80px 20px 0, #E4FF92 100px 20px 0, #60BC1F 120px 20px 0, #6BC529 140px 20px 0, #70DE1C 160px 20px 0, #65C123 180px 20px 0, #4CAB06 200px 20px 0, #7BD53B 220px 20px 0, #9FD772 240px 20px 0, #89CF6F 260px 20px 0, #80C45F 280px 20px 0,
+					#BFFF6A 0px 60px 0, #E4FF92 20px 60px 0, #6BC529 40px 60px 0, #E2F4CA 60px 60px 0, #79C346 80px 60px 0, #359400 100px 60px 0, #9AFF4C 120px 60px 0, #9AFF4C 140px 60px 0, #9DDB78 160px 60px 0, #80C45F 180px 60px 0, #A6E560 200px 60px 0, #9FD772 220px 60px 0, #9FD772 240px 60px 0, #E2F4CA 260px 60px 0, #58B616 280px 60px 0,
+					#4CAB06 0px 80px 0, #E4FF92 20px 80px 0, #9DDB78 40px 80px 0, #9DDB78 60px 80px 0, #E2F4CA 80px 80px 0, #E2F4CA 100px 80px 0, #359400 120px 80px 0, #80C45F 140px 80px 0, #9FDC58 160px 80px 0, #9FDC58 180px 80px 0, #9FDC58 200px 80px 0, #58B513 220px 80px 0, #9FD772 240px 80px 0, #9FDC58 260px 80px 0, #58B616 280px 80px 0,
+					#359400 0px 100px 0, #359400 20px 100px 0, #9DDB78 40px 100px 0, #BFFF6A 60px 100px 0, #9AFF4C 80px 100px 0, #7BD53B 100px 100px 0, #7BD53B 120px 100px 0, #79C346 140px 100px 0, #79C346 160px 100px 0, #A6E560 180px 100px 0, #E2F4CA 200px 100px 0, #E2F4CA 220px 100px 0, #359400 240px 100px 0, #359400 260px 100px 0, #A6E07A 280px 100px 0,
+					#4CAB06 0px 120px 0, #BFFF6A 20px 120px 0, #9DDB78 40px 120px 0, #E2F4CA 60px 120px 0, #E4FF92 80px 120px 0, #BFFF6A 100px 120px 0, #80C45F 120px 120px 0, #9FDC58 140px 120px 0, #79C346 160px 120px 0, #58B616 180px 120px 0, #89CF6F 200px 120px 0, #70DE1C 220px 120px 0, #70DE1C 240px 120px 0, #79C346 260px 120px 0, #E2F4CA 280px 120px 0,
+					#E2F4CA 0px 140px 0, #58B616 20px 140px 0, #58B616 40px 140px 0, #E2F4CA 60px 140px 0, #9FDC58 80px 140px 0, #9FDC58 100px 140px 0, #80C45F 120px 140px 0, #BFFF6A 140px 140px 0, #359400 160px 140px 0, #359400 180px 140px 0, #89CF6F 200px 140px 0, #89CF6F 220px 140px 0, #E2F4CA 240px 140px 0, #79C346 260px 140px 0, #9AFF4C 280px 140px 0,
+					#E2F4CA 0px 160px 0, #80C45F 20px 160px 0, #359400 40px 160px 0, #359400 60px 160px 0, #359400 80px 160px 0, #A6E560 100px 160px 0, #9FDC58 120px 160px 0, #BFFF6A 140px 160px 0, #BFFF6A 160px 160px 0, #A6E560 180px 160px 0, #9AFF4C 200px 160px 0, #80C45F 220px 160px 0, #E2F4CA 240px 160px 0, #A6E560 260px 160px 0, #A6E560 280px 160px 0,
+					#9DDB78 0px 180px 0, #359400 20px 180px 0, #9AFF4C 40px 180px 0, #359400 60px 180px 0, #E2F4CA 80px 180px 0, #9FD772 100px 180px 0, #9FD772 120px 180px 0, #6BC529 140px 180px 0, #6BC529 160px 180px 0, #58B513 180px 180px 0, #9AFF4C 200px 180px 0, #6BC529 220px 180px 0, #58B513 240px 180px 0, #E4FF92 260px 180px 0, #9FD772 280px 180px 0,
+					#9AFF4C 0px 200px 0, #E2F4CA 20px 200px 0, #E2F4CA 40px 200px 0, #A6E07A 60px 200px 0, #A6E07A 80px 200px 0, #4CAB06 100px 200px 0, #359400 120px 200px 0, #BFFF6A 140px 200px 0, #58B513 160px 200px 0, #58B513 180px 200px 0, #81CB6A 200px 200px 0, #6BC529 220px 200px 0, #6BC529 240px 200px 0, #E2F4CA 260px 200px 0, #80C45F 280px 200px 0,
+					#58B616 0px 220px 0, #58B616 20px 220px 0, #65C123 40px 220px 0, #4CAB06 60px 220px 0, #70DE1C 80px 220px 0, #70DE1C 100px 220px 0, #E2F4CA 120px 220px 0, #BFFF6A 140px 220px 0, #80C45F 160px 220px 0, #81CB6A 180px 220px 0, #81CB6A 200px 220px 0, #6BC529 220px 220px 0, #E2F4CA 240px 220px 0, #E4FF92 260px 220px 0, #E2F4CA 280px 220px 0,
+					#A6E560 0px 240px 0, #58B616 20px 240px 0, #58B616 40px 240px 0, #E2F4CA 60px 240px 0, #9DDB78 80px 240px 0, #BFFF6A 100px 240px 0, #BFFF6A 120px 240px 0, #359400 140px 240px 0, #80C45F 160px 240px 0, #E2F4CA 180px 240px 0, #A6E560 200px 240px 0, #E4FF92 220px 240px 0, #80C45F 240px 240px 0, #80C45F 260px 240px 0, #359400 280px 240px 0,
+					#9FDC58 0px 260px 0, #E2F4CA 20px 260px 0, #9AFF4C 40px 260px 0, #9AFF4C 60px 260px 0, #81CB6A 80px 260px 0, #9FDC58 100px 260px 0, #359400 120px 260px 0, #E2F4CA 140px 260px 0, #9DDB78 160px 260px 0, #9DDB78 180px 260px 0, #89CF6F 200px 260px 0, #89CF6F 220px 260px 0, #6BC529 240px 260px 0, #80C45F 260px 260px 0, #E2F4CA 280px 260px 0,
+					#9FDC58 0px 280px 0, #359400 20px 280px 0, #359400 40px 280px 0, #E4FF92 60px 280px 0, #E4FF92 80px 280px 0, #E2F4CA 100px 280px 0, #9AFF4C 120px 280px 0, #9DDB78 140px 280px 0, #E4FF92 160px 280px 0, #A6E560 180px 280px 0, #70DE1C 200px 280px 0, #359400 220px 280px 0, #E2F4CA 240px 280px 0, #6BC529 260px 280px 0, #80C45F 280px 280px 0;
+	}
+
+.bottom{
+	width:300px;
+	height: 300px;
+	-webkit-transform: rotateX(-90deg) translate3d(0px, 0px, 150px);
+	-moz-transform: rotateX(-90deg) translate3d(0px, 0px, 150px);
+	-o-transform: rotateX(-90deg) translate3d(0px, 0px, 150px);
+	-transform: rotateX(-90deg) translate3d(0px, 0px, 150px);
+}
+	.bottom div{
+		width: 20px;
+		height: 20px;
+		background: #B07E59;
+		box-shadow: #DBA889 20px 0 0, #B07E59 40px 0 0, #DBA889 60px 0px 0, #543322 80px 0px 0, #543322 100px 0px 0, #B07E59 120px 0px 0, #543322 140px 0px 0, #674730 160px 0px 0, #CDA081 180px 0px 0, #CDA081 200px 0px 0, #B07E59 220px 0px 0, #674730 240px 0px 0, #B07E59 260px 0px 0, #CCA588 280px 0px 0,
+					#9C745B 0px 20px 0, #8E6545 20px 20px 0, #674730 40px 20px 0, #8E6545 60px 20px 0, #B07E59 80px 20px 0, #543322 100px 20px 0, #CCA588 120px 20px 0, #543322 140px 20px 0, #543322 160px 20px 0, #B07E59 180px 20px 0, #78758A 200px 20px 0, #9C745B 220px 20px 0, #9C745B 240px 20px 0, #9C745B 260px 20px 0, #DBA889 280px 20px 0,
+					#674730 0px 40px 0, #674730 20px 40px 0, #674730 40px 40px 0, #9C745B 60px 40px 0, #543322 80px 40px 0, #674730 100px 40px 0, #DBA889 120px 40px 0, #DBA889 140px 40px 0, #DBA889 160px 40px 0, #B07E59 180px 40px 0, #DBA889 200px 40px 0, #9C745B 220px 40px 0, #B07E59 240px 40px 0, #9C745B 260px 40px 0, #674730 280px 40px 0,
+					#9C745B 0px 60px 0, #543322 20px 60px 0, #674730 40px 60px 0, #674730 60px 60px 0, #543322 80px 60px 0, #674730 100px 60px 0, #674730 120px 60px 0, #674730 140px 60px 0, #9C745B 160px 60px 0, #674730 180px 60px 0, #B07E59 200px 60px 0, #9C745B 220px 60px 0, #B07E59 240px 60px 0, #674730 260px 60px 0, #9C745B 280px 60px 0,
+					#9C745B 0px 80px 0, #9C745B 20px 80px 0, #8E6545 40px 80px 0, #DBA889 60px 80px 0, #674730 80px 80px 0, #DBA889 100px 80px 0, #9C745B 120px 80px 0, #9C745B 140px 80px 0, #674730 160px 80px 0, #674730 180px 80px 0, #674730 200px 80px 0, #DBA889 220px 80px 0, #9C745B 240px 80px 0, #674730 260px 80px 0, #9C745B 280px 80px 0,
+					#DBA889 0px 100px 0, #674730 20px 100px 0, #8E6545 40px 100px 0, #8E6545 60px 100px 0, #9C745B 80px 100px 0, #8E6545 100px 100px 0, #674730 120px 100px 0, #674730 140px 100px 0, #674730 160px 100px 0, #9C745B 180px 100px 0, #9C745B 200px 100px 0, #674730 220px 100px 0, #9C745B 240px 100px 0, #9C745B 260px 100px 0, #DBA889 280px 100px 0,
+					#8E6545 0px 120px 0, #674730 20px 120px 0, #9C745B 40px 120px 0, #9C745B 60px 120px 0, #674730 80px 120px 0, #9C745B 100px 120px 0, #9C745B 120px 120px 0, #DBA889 140px 120px 0, #DBA889 160px 120px 0, #9C745B 180px 120px 0, #78758A 200px 120px 0, #DBA889 220px 120px 0, #9C745B 240px 120px 0, #9C745B 260px 120px 0, #9C745B 280px 120px 0,
+					#8E6545 0px 140px 0, #B07E59 20px 140px 0, #DBA889 40px 140px 0, #DBA889 60px 140px 0, #8E6545 80px 140px 0, #8E6545 100px 140px 0, #9C745B 120px 140px 0, #9C745B 140px 140px 0, #674730 160px 140px 0, #9C745B 180px 140px 0, #9C745B 200px 140px 0, #DBA889 220px 140px 0, #DBA889 240px 140px 0, #674730 260px 140px 0, #9C6E54 280px 140px 0,
+					#B07E59 0px 160px 0, #B07E59 20px 160px 0, #B07E59 40px 160px 0, #8E6545 60px 160px 0, #8E6545 80px 160px 0, #B07E59 100px 160px 0, #674730 120px 160px 0, #674730 140px 160px 0, #543322 160px 160px 0, #B07E59 180px 160px 0, #B07E59 200px 160px 0, #B07E59 220px 160px 0, #B07E59 240px 160px 0, #674730 260px 160px 0, #674730 280px 160px 0,
+					#8E6545 0px 180px 0, #8E6545 20px 180px 0, #78758A 40px 180px 0, #B07E59 60px 180px 0, #543322 80px 180px 0, #543322 100px 180px 0, #674730 120px 180px 0, #CDA081 140px 180px 0, #9C745B 160px 180px 0, #9C745B 180px 180px 0, #B07E59 200px 180px 0, #B07E59 220px 180px 0, #674730 240px 180px 0, #674730 260px 180px 0, #B07E59 280px 180px 0,
+					#78758A 0px 200px 0, #CDA081 20px 200px 0, #B07E59 40px 200px 0, #B07E59 60px 200px 0, #674730 80px 200px 0, #543322 100px 200px 0, #956B53 120px 200px 0, #956B53 140px 200px 0, #9C745B 160px 200px 0, #B07E59 180px 200px 0, #8F6646 200px 200px 0, #674730 220px 200px 0, #DBA889 240px 200px 0, #9C745B 260px 200px 0, #543322 280px 200px 0,
+					#543322 0px 220px 0, #9C745B 20px 220px 0, #9C745B 40px 220px 0, #9C745B 60px 220px 0, #B07E59 80px 220px 0, #B07E59 100px 220px 0, #B07E59 120px 220px 0, #CDA081 140px 220px 0, #543322 160px 220px 0, #543322 180px 220px 0, #674730 200px 220px 0, #674730 220px 220px 0, #674730 240px 220px 0, #B07E59 260px 220px 0, #543322 280px 220px 0,
+					#8E6545 0px 240px 0, #B07E59 20px 240px 0, #B07E59 40px 240px 0, #9C6E54 60px 240px 0, #674730 80px 240px 0, #B07E59 100px 240px 0, #B07E59 120px 240px 0, #543322 140px 240px 0, #9C745B 160px 240px 0, #9C6E54 180px 240px 0, #9C6E54 200px 240px 0, #B0805A 220px 240px 0, #B07E59 240px 240px 0, #B07E59 260px 240px 0, #9C745B 280px 240px 0,
+					#8E6545 0px 260px 0, #956B53 20px 260px 0, #9C745B 40px 260px 0, #674730 60px 260px 0, #B07E59 80px 260px 0, #674730 100px 260px 0, #543322 120px 260px 0, #543322 140px 260px 0, #674730 160px 260px 0, #CDA081 180px 260px 0, #9C745B 200px 260px 0, #78758A 220px 260px 0, #543322 240px 260px 0, #CCA588 260px 260px 0, #9C6E54 280px 260px 0,
+					#674730 0px 280px 0, #B07E59 20px 280px 0, #9C745B 40px 280px 0, #B07E59 60px 280px 0, #B07E59 80px 280px 0, #543322 100px 280px 0, #674730 120px 280px 0, #543322 140px 280px 0, #B07E59 160px 280px 0, #B07E59 180px 280px 0, #674730 200px 280px 0, #674730 220px 280px 0, #9C745B 240px 280px 0, #B07E59 260px 280px 0, #CCA588 280px 280px 0;
+	}
+
+.back{
+	width: 300px;
+	height: 300px;
+	-webkit-transform: rotateY(180deg) translate3d(0px, 0px, 150px);
+	-moz-transform: rotateY(180deg) translate3d(0px, 0px, 150px);
+	-o-transform: rotateY(180deg) translate3d(0px, 0px, 150px);
+	-transform: rotateY(180deg) translate3d(0px, 0px, 150px);
+
+}
+.left{
+	width: 300px;
+	height: 300px;
+	-webkit-transform: rotateY(-90deg) translate3d(0px, 0px, 150px);
+	-moz-transform: rotateY(-90deg) translate3d(0px, 0px, 150px);
+	-o-transform: rotateY(-90deg) translate3d(0px, 0px, 150px);
+	-transform: rotateY(-90deg) translate3d(0px, 0px, 150px);
+}
+
+.right{
+	width: 300px;
+	height: 300px;
+	-webkit-transform: rotateY(90deg) translate3d(0px, 0px, 150px);
+	-moz-transform: rotateY(90deg) translate3d(0px, 0px, 150px);
+	-o-transform: rotateY(90deg) translate3d(0px, 0px, 150px);
+	-transform: rotateY(90deg) translate3d(0px, 0px, 150px);
+}
+
+.box section *{
+	position: absolute;
+	overflow: hidden;
+}
+
+/*Replacement Info*/
+
+.stage h1{
+	color: #FFFFFF;
+	text-align:center;
+	font-size: 26px;
+	font-family:Georgia, serif;
+	display: block;
+	padding: 12px 0px;
+}
+
+.stage p{
+	text-align:center;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family:Georgia, serif;
+	padding: 12px 0px;
+}
+
+.stage a{
+	color: #FFFFFF;
+	font-style:italic;
+	text-decoration: none;
+}
+.stage a:hover{
+	text-decoration: underline;
+}
