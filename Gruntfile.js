@@ -9,8 +9,11 @@ module.exports = function(grunt) {
 
   gtx.config(gruntConfig);
 
-  // grunt.registerTask('build:angular', ['recess:less', 'clean:angular', 'copy:libs', 'copy:angular', 'recess:angular', 'concat:angular', 'uglify:angular']);
+  gtx.config(gruntConfig);
+
+  grunt.registerTask('build:angulaar', ['recess:less', 'clean:angular', 'copy:libs', 'copy:angular', 'recess:angular', 'concat:angular', 'uglify:angular']);
   grunt.registerTask('build:html', ['clean:html', 'copy:html', 'recess:html', 'swig:html', 'concat:html', 'uglify:html']);
+  grunt.registerTask('build:landing', ['copy:landing', 'swig:landing']);  grunt.registerTask('build:html', ['clean:html', 'copy:html', 'recess:html', 'swig:html', 'concat:html', 'uglify:html']);
   grunt.registerTask('build:landing', ['copy:landing', 'swig:landing']);
 
   grunt.registerTask('release', ['bower-install-simple', 'bump-commit']);
